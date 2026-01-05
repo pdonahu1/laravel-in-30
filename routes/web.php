@@ -2,14 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
+use App\Models\Employer;
+
 
 Route::get('/', function () {
     return view('home');
 });
 
 Route::get('/jobs', function () {
+    $jobs = Job::with('employer')->simplePaginate(5);
     return view('jobs', [
-        'jobs' => Job::all()
+        'jobs' => $jobs
     ]);
 });
 
